@@ -2,6 +2,7 @@
 ## Requirements
 
 - Run on potentially any Linux based system
+- Root privileges
 - Tested successfully on Ubuntu, Centos, Redhat, OpenSUSE and various Linux appliances (Checkpoint, Tufin, F5, ClearSwift, Totemo ...)
 
 ## Usage
