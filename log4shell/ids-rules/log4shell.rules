@@ -4,5 +4,5 @@ alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"At-Defense log4shell - log4j 
 
 alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"At-Defense log4shell - log4j exploit LDAP callback - outbound LDAP searchRequest"; flow:established; content:"|31 36 2e 38 34 30 2e 31 2e 31 31 33 37 33 30 2e|"; classtype:trojan-activity; sid:1002; rev:1; metadata:created_at 2021_12_12, updated_at 2021_12_12;)
 
-alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"At-Defense log4shell - log4j exploit LDAP callback - unbind request"; flow:established; content:"|32 2e 31 36 2e 38 34 30 2e 31 2e 31 31 33 37 33 30 2e 33 2e 34 2e 32|"; classtype:trojan-activity; sid:1002; rev:1; metadata:created_at 2021_12_12, updated_at 2021_12_12;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"At-Defense log4shell - log4j exploit LDAP callback - outbound LDAP unbind request"; flow:established; content:"|32 2e 31 36 2e 38 34 30 2e 31 2e 31 31 33 37 33 30 2e 33 2e 34 2e 32|"; classtype:trojan-activity; sid:1003; rev:1; metadata:created_at 2021_12_12, updated_at 2021_12_12;)
 
