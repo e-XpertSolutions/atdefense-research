@@ -10,7 +10,7 @@ $proc = "*java*"
 $pattern_log4j = "log4j"
 $pattern_forensic = "jndi:"
 $pattern_logfiles = ".log"
-$handle_exe_path = '\\READ_ONLY_SHARE\sysinternals\handle.exe -accepteula'
+$handle_exe_path = '\\READ_ONLY_SHARE\sysinternals\handle.exe'
 # 0 = False, 1 = True
 $deployment_with_gpo = 0
 $centralized_unc = "\\WRITABLE_SHARE\$srv-log4jensic.txt"
@@ -50,7 +50,7 @@ If ($result_java_ids -ne $null) {
 
 		### Getting handles for each PID and looking for log4j
 
-        $command_handle = $handle_exe_path+" -p " + $id_process
+        $command_handle = $handle_exe_path+" -accepteula -p " + $id_process
         $cmd_output = cmd /c $command_handle | Select-String -Pattern 'File .+?:'
 
         if ($cmd_output -match $pattern_log4j ) {
