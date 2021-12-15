@@ -51,7 +51,7 @@ If ($result_java_ids -ne $null) {
 		### Getting handles for each PID and looking for log4j
 
         $command_handle = $handle_exe_path+" -p " + $id_process
-        $cmd_output = cmd /c $command_handle | SELECT-STRING –pattern 'File .+?:'
+        $cmd_output = cmd /c $command_handle | Select-String -Pattern 'File .+?:'
 
         if ($cmd_output -match $pattern_log4j ) {
             Write-Host -Foregroundcolor red "`n[WARNING][LOG4J] Lib usage detected "
@@ -113,11 +113,8 @@ If ($result_java_ids -ne $null) {
                 }
     }
 
-}
-
-else {
+} else {
     Write-Host -Foregroundcolor green "[INFO][JAVA] No process found"
 }
-
 
 
