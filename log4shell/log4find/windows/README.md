@@ -22,6 +22,8 @@ Local usage from a CMD shell as Administrator (default)
 
 Another option is to schedule the deployment and execution of this script through all your Windows domain through GPO and collect all the outputs to a central logs directory. 
 
+**Please note that in that configuration, the script will check if the output file exists already. If yes, the script will not run a second time. To force it to run again, make sure to delete or remove the output file of the machine in the centralized logs folder.**
+
 To do that, the file "handle.exe" must be available for all the machines. 
 
 You can host that file in a **READ ONLY** file share accessible to all machines : \\\READ_ONLY_SHARE\handle.exe. 
