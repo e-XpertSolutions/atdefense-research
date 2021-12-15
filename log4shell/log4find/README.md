@@ -40,7 +40,7 @@ Keep in mind that this tool is not perfect but is a good starting point for your
 
 ## Authors
 
-- [eXpert Solutions] Michael Molho (research/Linux)
+- [eXpert Solutions] Michael Molho (research/Linux/Windows)
 - [eXpert Solutions] David Routin (Windows)
 
 ## Contribution
