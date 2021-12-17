@@ -14,7 +14,8 @@ $log4find_ver = "2.0"
 $pattern_log4j = "log4j"
 $pattern_forensic = "jndi:"
 $pattern_logfiles = "\.log|\.txt"
-$log4j_vuln_vers = "^(2\.[0-9]$)|(2\.1[012345]$)"
+$log4j_vuln_vers_RCE = "^(2\.[0-9]$)|(2\.1[01234]$)"
+$log4j_vuln_vers_DOS = "(2\.1[5]$)"
 
 # Test handle.exe is accessible
 if ( !$PSBoundParameters.ContainsKey('handlepath') ) {
@@ -123,9 +124,12 @@ If ($result_java_ids) {
                     if ( $log4j_vers_match.Success ) {
                         $log4j_vers = $log4j_vers_match.Groups[1].Value
                         # Detect vulnerable version
-                        if ( $log4j_vers -match $log4j_vuln_vers ) {
-                            Log-Central -LoggingPath $loggingpath -Color red -Msg "    [${log4j_vers}:VULN] $log4j_path"
-                        } else {
+                        if ( $log4j_vers -match $log4j_vuln_vers_RCE ) {
+                            Log-Central -LoggingPath $loggingpath -Color red -Msg "    [${log4j_vers}:VULN-RCE] $log4j_path"
+                        } elseif ( $log4j_vers -match $log4j_vuln_vers_DOS ) {
+                            Log-Central -LoggingPath $loggingpath -Color red -Msg "    [${log4j_vers}:VULN-DOS] $log4j_path"
+                        }
+                        else {
                             Log-Central -LoggingPath $loggingpath -Color green -Msg "    [${log4j_vers}:OK] $log4j_path"
                         }
                     } else {
