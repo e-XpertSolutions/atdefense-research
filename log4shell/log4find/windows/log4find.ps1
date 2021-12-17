@@ -2,20 +2,21 @@
 # Log4shell analysis script
 # Must be run as Admin after having downloaded Sysinternals Handle.exe tool 
 #
+# e-Xpert Solutions SA 2021
 # David Routin
 # Michael Molho
-#
+
 
 # Parse parameters
 param($handlepath, $loggingdir)
 
 # Config
-$log4find_ver = "2.0"
+$log4find_ver = "2.1"
 $pattern_log4j = "log4j"
 $pattern_forensic = "jndi:"
 $pattern_logfiles = "\.log|\.txt"
 $log4j_vuln_vers_RCE = "^(2\.[0-9]$)|(2\.1[01234]$)"
-$log4j_vuln_vers_DOS = "(2\.1[5]$)"
+$log4j_vuln_vers_DOS = "^(2\.1[5]$)"
 
 # Test handle.exe is accessible
 if ( !$PSBoundParameters.ContainsKey('handlepath') ) {
