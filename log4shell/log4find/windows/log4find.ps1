@@ -8,10 +8,10 @@
 
 
 # Parse parameters
-param($handlepath, $loggingdir)
+param($handlepath, $loggingdir, [switch]$allprocess)
 
 # Config
-$log4find_ver = "2.1"
+$log4find_ver = "2.2"
 $pattern_log4j = "log4j"
 $pattern_forensic = "jndi:"
 $pattern_logfiles = "\.log|\.txt"
@@ -84,13 +84,21 @@ echo " ==> By e-Xpert Solutions  (David Routin/Michael Molho)";
 echo " ==> Version: $log4find_ver                      ";
 echo "                                                 ";
 
-# Check process name based on java patterns
-$result_java_ids = Get-Process "*java*", "*tomcat*", "*apache*"
+# If -AllProcess is used, loop through all running proccess, else try to target Java/Tomcat/Apache processes
+$result_java_ids = ""
+if ( $PSBoundParameters.ContainsKey('allprocess') ) {
+    $result_java_ids = Get-Process "*"
+    Log-Central -LoggingPath $loggingpath -Msg "Analyzing all running processes, it might take a few minutes ... `n"
+} else {
+    $result_java_ids = Get-Process "*java*", "*tomcat*", "*apache*"
+    Log-Central -LoggingPath $loggingpath -Msg "Trying to auto detect Java process ... `n"
+}
+
 
 If ($result_java_ids) {
 
     $nb_proc = $result_java_ids.Length
-    Log-Central -LoggingPath $loggingpath -Msg "$nb_proc process JAVA found`n"
+    Log-Central -LoggingPath $loggingpath -Msg "$nb_proc process found`n"
 
     $result_java_ids | Foreach-Object { 
 
@@ -155,7 +163,8 @@ If ($result_java_ids) {
     }
 
 } else {
-    Log-Central -LoggingPath $loggingpath -Color green -Msg "No java' process found. This one is safe  ;-) `n"
+    Log-Central -LoggingPath $loggingpath -Color green -Msg "No matching process found. This one is safe  ;-) "
+    Log-Central -LoggingPath $loggingpath -Color yellow -Msg "If you think Log4Find missed a Java process, try to run it with -AllProcess option`n"
 }
 
 

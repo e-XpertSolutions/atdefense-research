@@ -16,6 +16,12 @@ Local usage from a CMD shell as Administrator (default)
 
 `powershell -ExecutionPolicy Bypass -File log4find.ps1 -HandlePath <handle.exe_filepath>`
 
+By default, the script script will try to auto detect running Java processes. Sometimes it might miss them when the java.exe binary has been renamed. 
+
+**If you think Log4Find has missed a running Java process, you can restart it with the option -AllProcess (longer execution time) :**
+
+`powershell -ExecutionPolicy Bypass -File log4find.ps1 -HandlePath <handle.exe_filepath> -AllProcess`
+
 ![](screenshot-windows.png)
 
 ## Advanced usage: GPO deployment and central logging
