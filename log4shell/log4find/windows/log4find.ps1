@@ -16,7 +16,7 @@ $pattern_log4j = "log4j"
 $pattern_forensic = "jndi:"
 $pattern_logfiles = "\.log|\.txt"
 $log4j_vuln_vers_RCE = "^(2\.[0-9]$)|(2\.1[01234]$)"
-$log4j_vuln_vers_DOS = "^(2\.1[5]$)"
+$log4j_vuln_vers_DOS = "^(2\.1[56]$)"
 
 # Test handle.exe is accessible
 if ( !$PSBoundParameters.ContainsKey('handlepath') ) {
