@@ -1,10 +1,11 @@
 #!/bin/sh
 
-LOG4FIND_VER="2.0"
+LOG4FIND_VER="2.1"
 PROCESS_NAME="java"
 LIB="log4j.+\.jar"
 LIBNAME="log4j"
-VULN_VERS="^(2\.[0-9]$)|(2\.1[01234]$)"
+VULN_VERS_RCE="^(2\.[0-9]$)|(2\.1[01234]$)"
+VULN_VERS_DOS="^(2\.1[56]$)"
 EXPLOIT='${jndi:'
 
 display_cmd () {
@@ -71,11 +72,19 @@ do
                 printf "\033[33m      - [???:TOCHECK] $f \033[0m \n"
             # Detect vulnerable versions
             else
-                echo "$LOG4J_VERS" | grep -E "$VULN_VERS" > /dev/null
+                # Versions vulnerable to RCE
+                echo "$LOG4J_VERS" | grep -E "$VULN_VERS_RCE" > /dev/null
                 if [ $? -eq 0 ]; then
-                    printf "\033[91m      - [$LOG4J_VERS:VULN] $f \033[0m \n"
+                    printf "\033[91m      - [$LOG4J_VERS:VULN-RCE] $f \033[0m \n"
                 else
-                    printf "\033[32m      - [$LOG4J_VERS:OK] $f \033[0m \n"
+                    # Versions vulnerable to Deny of Service
+                    echo "$LOG4J_VERS" | grep -E "$VULN_VERS_DOS" > /dev/null
+                    if [ $? -eq 0 ]; then
+                        printf "\033[91m      - [$LOG4J_VERS:VULN-DOS] $f \033[0m \n"
+                    else
+                        # Not vulnerable version
+                        printf "\033[32m      - [$LOG4J_VERS:OK] $f \033[0m \n"
+                    fi
                 fi
             fi
         done
